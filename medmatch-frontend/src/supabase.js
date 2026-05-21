@@ -1,0 +1,8 @@
+import { createClient } from '@supabase/supabase-js'
+
+console.log("Variáveis do Vite:", import.meta.env) // <- Adicione esta linha
+
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey)
