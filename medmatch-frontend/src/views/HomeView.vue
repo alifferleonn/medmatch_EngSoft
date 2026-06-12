@@ -1,6 +1,5 @@
 <template>
   <div class="landing-page">
-    <!-- NAVBAR -->
     <nav class="navbar">
       <div class="logo-container">
         <div class="logo-icon">M</div>
@@ -13,7 +12,6 @@
       </div>
     </nav>
 
-    <!-- HERO SECTION -->
     <main class="hero">
       <div class="hero-content">
         <div class="ia-tag">
@@ -26,13 +24,17 @@
           Nossa IA analisa seus sintomas clínicos em segundos e conecta você à agenda do especialista ideal. Mais assertividade, zero filas.
         </p>
 
-        <div class="cta-buttons">
-          <button class="btn-patient" @click="irParaPaciente">Sou Paciente</button>
-          <button class="btn-doctor" @click="irParaMedico">Sou Médico</button>
+        <div class="cta-buttons-container">
+          <div class="cta-buttons-main">
+            <button class="btn-triagem-ia" @click="irParaTriagem">✨ Iniciar Pré-Triagem com IA</button>
+          </div>
+          <div class="cta-sub-buttons">
+            <button class="btn-patient" @click="irParaPaciente">Sou Paciente</button>
+            <button class="btn-doctor" @click="irParaMedico">Sou Médico</button>
+          </div>
         </div>
       </div>
 
-      <!-- CARD MEDMATCH BRAIN -->
       <div class="hero-visual">
         <div class="brain-card">
           <div class="card-header">
@@ -75,6 +77,11 @@ const irParaPaciente = () => {
 
 const irParaMedico = () => {
   router.push('/register-doctor');
+};
+
+// Nova rota para a tela de pré-triagem
+const irParaTriagem = () => {
+  router.push('/pretriagem');
 };
 </script>
 
@@ -188,31 +195,66 @@ const irParaMedico = () => {
   max-width: 520px;
 }
 
-.cta-buttons {
+/* NOVOS BOTÕES CTA */
+.cta-buttons-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cta-sub-buttons {
   display: flex;
   gap: 20px;
 }
 
-.btn-patient {
+.btn-triagem-ia {
   background: #008767;
   color: white;
   border: none;
-  padding: 18px 40px;
+  padding: 20px 40px;
   border-radius: 12px;
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 1.1rem;
   cursor: pointer;
+  box-shadow: 0 10px 20px rgba(0, 135, 103, 0.15);
+  transition: transform 0.2s, background 0.2s;
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-triagem-ia:hover {
+  background: #006e54;
+  transform: translateY(-2px);
+}
+
+.btn-patient {
+  background: white;
+  color: #008767;
+  border: 1px solid #008767;
+  padding: 14px 30px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  flex: 1;
+  max-width: 250px;
 }
 
 .btn-doctor {
-  background: white;
-  color: #1a202c;
+  background: transparent;
+  color: #4a5568;
   border: 1px solid #e2e8f0;
-  padding: 18px 40px;
+  padding: 14px 30px;
   border-radius: 12px;
-  font-weight: 700;
-  font-size: 1rem;
+  font-weight: 600;
+  font-size: 0.95rem;
   cursor: pointer;
+  flex: 1;
+  max-width: 250px;
 }
 
 /* BRAIN CARD */

@@ -5,6 +5,7 @@ import LoginView from '@/views/LoginView.vue'
 import RegisterPatient from '@/views/RegisterPatient.vue'
 import RegisterDoctor from '@/views/RegisterDoctor.vue'
 import DashboardMedic from '@/views/DashboardMedic.vue' // <-- Importação da dashboard
+import PreTriagemView from '@/views/PreTriagemView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -45,6 +46,11 @@ const router = createRouter({
       path: '/confirmacao',
     name: 'Confirmacao',
     component: () => import('../views/ConfirmacaoAgendamento.vue')
+    },
+    {
+      path: '/pretriagem',
+      name: 'PreTriagem',
+      component: PreTriagemView
     }
   ]
 })

@@ -10,10 +10,6 @@ from google.genai import types
 load_dotenv()
 app = FastAPI()
 
-# ============================================
-# SOLID Principles Applied
-# ============================================
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -26,16 +22,21 @@ class SintomaInput(BaseModel):
     texto: str
 
 
-# [ISP] Interface Segregation Principle
-# Interface bem segregada com apenas um método específico necessário
+# ==========================================
+# 👇 FALA 1: A INTERFACE (Letras 'I' e 'D' do SOLID)
+# ==========================================
+# (Princípio da Inversão de Dependência - DIP)
+# Criamos uma interface abstrata para o serviço de triagem.
 class IServicoTriagem(ABC):
     @abstractmethod
     async def analisar_sintomas(self, texto: str) -> str:
         pass
 
 
-# [SRP] Single Responsibility Principle
-# Responsabilidade única: gerenciar integração com Gemini e análise de sintomas
+# ==========================================
+# 👇 FALA 2: A IMPLEMENTAÇÃO CONCRETA (Responsabilidade Única - SRP)
+# ==========================================
+# Esta classe tem APENAS UMA responsabilidade: comunicar com o Gemini.
 class GeminiTriagemService(IServicoTriagem):
     def __init__(self):
         # O cliente da Google é instanciado aqui dentro do serviço específico
@@ -63,18 +64,19 @@ class GeminiTriagemService(IServicoTriagem):
             )
             return response.text
         except Exception as e:
+            # Lança o erro para ser capturado pela camada web
             raise RuntimeError(f"Erro na API do Gemini: {str(e)}")
 
 
-# [DIP] Dependency Inversion Principle
-# Função retorna a interface abstrata, não a implementação concreta
-# Permite trocar implementações sem alterar código existente
+# ==========================================
+# 👇 FALA 3: INJEÇÃO DE DEPENDÊNCIA (Strategy e Letra 'L')
+# ==========================================
+# Função auxiliar para decidir qual implementação usar.
+# Se no futuro quiseres mudar para OpenAI, basta trocar esta linha.
 def obter_servico_triagem() -> IServicoTriagem:
     return GeminiTriagemService()
 
 
-# [LSP] Liskov Substitution Principle
-# Serviço pode ser qualquer implementação de IServicoTriagem
 @app.post("/triagem")
 async def realizar_triagem(
     dados: SintomaInput, servico: IServicoTriagem = Depends(obter_servico_triagem)

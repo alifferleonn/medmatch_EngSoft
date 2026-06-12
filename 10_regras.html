@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapeamento de Usabilidade: 10 Heurísticas de Nielsen</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* CONFIGURAÇÕES GERAIS DE DESIGN */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1a202c;
+            padding: 40px 20px;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* CABEÇALHO DO RELATÓRIO */
+        header {
+            margin-bottom: 35px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 20px;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            color: #0f172a;
+            font-weight: 700;
+        }
+
+        header p {
+            color: #64748b;
+            margin-top: 6px;
+            font-size: 1.1rem;
+        }
+
+        /* GRID DOS CARDS */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 24px;
+        }
+
+        /* CARD INDIVIDUAL DA HEURÍSTICA */
+        .card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-left: 5px solid #008767; /* Destaque verde de aprovação */
+            border-radius: 12px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .badge {
+            background: #e6f3ef;
+            color: #008767;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        .card-header h3 {
+            font-size: 1.15rem;
+            color: #1e293b;
+            font-weight: 600;
+        }
+
+        .description {
+            font-size: 0.9rem;
+            color: #64748b;
+            line-height: 1.45;
+        }
+
+        /* CAIXA DE MAPEAMENTO DO CÓDIGO VUE */
+        .mapping-box {
+            margin-top: auto;
+            background: #f1f5f9;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            color: #334155;
+            border: 1px solid #e2e8f0;
+        }
+
+        .mapping-box strong {
+            display: block;
+            margin-bottom: 6px;
+            color: #475569;
+        }
+
+        .mapping-box code {
+            background: #e2e8f0;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+            color: #0f172a;
+            font-size: 0.75rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Cabeçalho Principal -->
+        <header>
+            <h1>📋 Relatório: 10 Heurísticas de Nielsen</h1>
+            <p>Mapeamento de usabilidade e conformidade aplicados no projeto <strong>MedMatch</strong></p>
+        </header>
+
+        <!-- Grade com as 10 Regras -->
+        <div class="grid">
+
+            <!-- HEURÍSTICA 1 -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="badge">H1</span>
+                    <h3>Visibilidade do Status</h3>
+                </div>
+                <p class="description">O sistema deve sempre manter o usuário devidamente informado sobre o que está acontecendo em tempo real.</p>
+                <div class="mapping-box">
+                    <strong>📍 Onde está implementado:</strong>
+                    Tag fixa <code>&lt;p class="online-status"&gt;Online&lt;/p&gt;</code> e na diretiva reativa do bot <code>v-if="m.status"</code>, que renderiza o marcador "✓ Análise Concluída".
+                </div>
+            </div>
+
+            <!-- HEURÍSTICA 2 -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="badge">H2</span>
+                    <h3>Compatibilidade com o Mundo Real</h3>
+                </div>
+                <p class="description">A interface deve falar a linguagem do usuário, utilizando conceitos e palavras familiares, e não termos técnicos de programação.</p>
+                <div class="mapping-box">
+                    <strong>📍 Onde está implementado:</strong>
+                    Uso de semântica médica comum nos menus e labels de dados da aplicação, como <code>"Nova Triagem"</code>, <code>"Histórico"</code> e identificação de <code>"CRM"</code>.
+                </div>
+            </div>
+
+            <!-- HEURÍSTICA 3 -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="badge">H3</span>
+                    <h3>Controle e Liberdade do Usuário</h3>
+                </div>
+                <p class="description">Usuários costumam realizar ações por engano. É essencial disponibilizar uma "saída de emergência" fácil para cancelar ou redefinir fluxos.</p>
+                <div class="mapping-box">
+                    <strong>📍 Onde está implementado:</strong>
+                    No botão condicional inserido na barra lateral: <code>🔄 Reiniciar Triagem</code>. Ele executa a função que limpa as reatividades do chat sem dar refresh na página.
+                </div>
+            </div>
+
+            <!-- HEURÍSTICA 4 -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="badge">H4</span>
+                    <h3>Consistência e Padrões</h3>
+                </div>
+                <p class="description">O usuário não deve ter que adivinhar se palavras ou comandos diferentes significam a mesma coisa. Siga as convenções já estabelecidas.</p>
+                <div class="mapping-box">
+                    <strong>📍 Onde está implementado:</strong>
+                    Uso da arquitetura padrão de painéis (Sidebar + Área de Conteúdo). Padronização estrita da cor verde <code>#008767</code> para elementos ativos e botões principais.
+                </div>
+            </div>
+
+            <!-- HEURÍSTICA 5 -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="badge">H5</span>
+                    <h3>Prevenção de Erros</h3>
+                </div>
+                <p class="description">Melhor do que criar ótimas notificações de erro é estruturar um design inteligente que impeça o problema de acontecer.</p>
+                <div class="mapping-box">
+                    <strong>📍 Onde está implementado:</strong>
+                    Na trava lógica contida no botão principal: <code>:disabled="loading || !inputUsuario.trim()"</code>. Impede o envio de requisições vazias ao servidor.
+                </div>
+            </div>
+
+            <!-- HEURÍSTICA 6 -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="badge">H6</span>
+                    <h3>Reconhecimento em vez de Memorização</h3>
+                </div>
+                <p class="description">Reduza a carga cognitiva do usuário tornando objetos e opções visíveis. O usuário não deve ter que lembrar caminhos anteriores.</p>
+                <div class="mapping-box">
+                    <strong>📍 Onde está implementado:</strong>
+                    Divisão da tela em Grid de duas colunas. O chat da triagem e a lista de médicos recomendados ficam expostos simultaneamente na mesma área de trabalho.
+                </div>
+            </div>
+
+            <!-- HEURÍSTICA 7 -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="badge">H7</span>
+                    <h3>Flexibilidade e Eficiência de Uso</h3>
+                </div>
+                <p class="description">Atalhos e aceleradores de interação tornam o uso muito mais produtivo e ágil tanto para usuários novatos quanto para os experientes.</p>
+                <div class="mapping-box">
+                    <strong>📍 Onde está implementado:</strong>
+                    Na caixa de sugestões <code>class="quick-tags"</code>. Permite ao paciente inserir frases completas de sintomas típicos com apenas um clique rápido.
+                </div>
+            </div>
+
+            <!-- HEURÍSTICA 8 -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="badge">H8</span>
+                    <h3>Estética e Design Minimalista</h3>
+                </div>
+                <p class="description">Interfaces visuais devem conter apenas informações relevantes. Diálogos extras competem e enfraquecem a visibilidade do que importa.</p>
+                <div class="mapping-box">
+                    <strong>📍 Onde está implementado:</strong>
+                    Utilização da fonte moderna "Inter", excelente aproveitamento de respiros (espaços em branco) e uso de <code>empty-states</code> limpos na lateral.
+                </div>
+            </div>
+
+            <!-- HEURÍSTICA 9 -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="badge">H9</span>
+                    <h3>Reconhecimento e Recuperação de Erros</h3>
+                </div>
+                <p class="description">Mensagens de erro devem ser escritas de forma clara, sem códigos numéricos de sistema, sugerindo uma ação corretiva imediata.</p>
+                <div class="mapping-box">
+                    <strong>📍 Onde está implementado:</strong>
+                    No contêiner <code>error-action-area</code>. Caso a API falhe, a tela exibe uma dica amigável e gera o botão <code>🔄 Tentar Reenviar</code> preservando o texto digitado.
+                </div>
+            </div>
+
+            <!-- HEURÍSTICA 10 -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="badge">H10</span>
+                    <h3>Ajuda e Documentação</h3>
+                </div>
+                <p class="description">Por mais que o sistema seja intuitivo, fornecer documentações breves e integradas ajuda o usuário a resolver dúvidas pontuais.</p>
+                <div class="mapping-box">
+                    <strong>📍 Onde está implementado:</strong>
+                    Pequeno parágrafo de ajuda fixado abaixo da caixa de entrada do chat: <code>class="input-help-text"</code>, instruindo o usuário sobre como detalhar os sintomas.
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
